@@ -15,11 +15,11 @@ export default function HomeLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="flex w-screen h-screen">
+    <main className="flex w-screen">
       <SideBar></SideBar>
       <div className="main w-full relative">
         <Header></Header>
-        <div className="content">{children}</div>
+        <div className="content w-full ml-3 p-4">{children}</div>
       </div>
     </main>
   );

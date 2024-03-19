@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import React, { useMemo, useState } from 'react';
@@ -9,6 +10,12 @@ import { cn } from '@/lib/utils';
 import { logo } from '@/assets/exports';
 import { NAVIGATION_SIDEBAR } from '@/enums/navigation.enum';
 import { Button } from '@/components/ui/button';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from './ui/accordion';
 
 interface PropSideBar {
   isMobile?: boolean;
@@ -29,7 +36,7 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
       });
       return [...newArr];
     });
-  }, []);
+  }, [isMinimal]);
 
   const onClickMinimal = () => {
     setIsMinimal((prevItems) => !prevItems);
@@ -54,7 +61,9 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
     <main
       className={cn(
         isMobile ? 'block' : 'hidden',
-        isMobile ? 'border-none' : 'border-r-[1px] border-dashed',
+        isMobile
+          ? 'border-none'
+          : 'border-r-[1px] border-dashed sticky top-0 left-0 h-screen z-50',
         isMinimal ? 'lg:w-[120px]' : 'lg:w-[300px]',
         'lg:block',
       )}
@@ -84,44 +93,48 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
               key={navItem.nameGroup}
               className="flex justify-center flex-col m-2 gap-2"
             >
-              <Button
-                variant="outline"
-                className={cn(
-                  'justify-start border-none text-xs h-5',
-                  'hover:bg-none',
-                  isMinimal ? 'hidden' : '',
-                )}
-                onClick={() => onClickExpandChild(navItem.nameGroup)}
-              >
-                {navItem.nameGroup}
-              </Button>
-              {expandChilds.some((data) => data === navItem.nameGroup) ? (
-                navItem.children.map((child) => {
-                  return (
-                    <Button
-                      variant="outline"
-                      key={`${navItem.nameGroup}_${child.name}`}
-                      className={cn(
-                        'flex text-xs justify-start',
-                        isMinimal ? 'flex-col h-18' : 'flex-row',
-                        pathname.includes(child.link)
-                          ? 'bg-green-500 text-white'
-                          : '',
-                      )}
-                      onClick={() => onClickNavigation(child.link)}
-                    >
-                      <child.logo
-                        size={25}
-                        strokeWidth={'1px'}
-                        className={'m-2'}
-                      />
-                      <span>{child.name}</span>
-                    </Button>
-                  );
-                })
-              ) : (
-                <></>
-              )}
+              <Accordion type="multiple" value={expandChilds}>
+                <AccordionItem
+                  className="border-none"
+                  value={navItem.nameGroup}
+                >
+                  <AccordionTrigger
+                    className={cn(
+                      'h-1 hover:no-underline text-xs h-5',
+                      isMinimal ? 'hidden' : 'flex',
+                    )}
+                    onClick={() => onClickExpandChild(navItem.nameGroup)}
+                  >
+                    <span>{navItem.nameGroup}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="flex flex-col gap-2 p-0 m-0">
+                    {navItem.children.map((child) => {
+                      return (
+                        <Button
+                          variant="outline"
+                          key={`${navItem.nameGroup}_${child.name}`}
+                          className={cn(
+                            'flex text-xs justify-start',
+                            isMinimal ? 'flex-col h-18' : 'flex-row',
+                            pathname.includes(child.link)
+                              ? 'bg-green-500 text-white'
+                              : '',
+                          )}
+                          style={{ transition: 'width 1s' }}
+                          onClick={() => onClickNavigation(child.link)}
+                        >
+                          <child.logo
+                            size={25}
+                            strokeWidth={'1.5px'}
+                            className={'m-2'}
+                          />
+                          <span>{child.name}</span>
+                        </Button>
+                      );
+                    })}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </section>
           );
         })}

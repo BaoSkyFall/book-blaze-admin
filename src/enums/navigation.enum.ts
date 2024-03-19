@@ -1,18 +1,18 @@
-import { AiFillDashboard } from 'react-icons/ai';
+import { Gauge, LayoutDashboard } from 'lucide-react';
 
 export const NAVIGATION_SIDEBAR = [
   {
-    nameGroup: 'OVERVIEW',
+    nameGroup: 'Overview',
     expand: true,
     children: [
       {
-        name: 'dashboard',
-        logo: AiFillDashboard,
+        name: 'Thống Kê',
+        logo: Gauge,
         link: '/dashboard',
       },
       {
-        name: 'dashboard1',
-        logo: AiFillDashboard,
+        name: 'Thử Thống Kê',
+        logo: LayoutDashboard,
         link: '/dashboard1',
       },
     ],
@@ -23,14 +23,16 @@ export const NAVIGATION_SIDEBAR = [
     children: [
       {
         name: 'dashboard2',
-        logo: AiFillDashboard,
+        logo: Gauge,
         link: '/dashboard2',
       },
       {
         name: 'dashboard3',
-        logo: AiFillDashboard,
+        logo: Gauge,
         link: '/dashboard3',
       },
     ],
   },
 ];
+
+// https://lucide.dev/icons/

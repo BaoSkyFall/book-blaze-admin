@@ -5,10 +5,8 @@ import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { BarChart2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import SideBar from './sidebar';
-import { useTheme } from 'next-themes';
 
 const SideBarMobile = () => {
-  const { theme } = useTheme();
   return (
     <Sheet>
       <SheetTrigger>
