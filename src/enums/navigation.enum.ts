@@ -31,6 +31,128 @@ export const NAVIGATION_SIDEBAR = [
         logo: Gauge,
         link: '/dashboard3',
       },
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
+    ],
+  },
+  {
+    nameGroup: 'OVERVIEW2',
+    expand: true,
+    children: [
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
+    ],
+  },
+  {
+    nameGroup: 'OVERVIEW3',
+    expand: true,
+    children: [
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
+      {
+        name: 'dashboard2',
+        logo: Gauge,
+        link: '/dashboard2',
+      },
+      {
+        name: 'dashboard3',
+        logo: Gauge,
+        link: '/dashboard3',
+      },
     ],
   },
 ];
