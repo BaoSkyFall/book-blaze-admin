@@ -36,9 +36,14 @@ const Header = () => {
 
   return (
     <main
+      style={{
+        backdropFilter: 'saturate(200%) blur(6px)',
+      }}
       className={cn(
-        'header sticky top-0 w-full flex justify-between items-center pl-2 pr-5 h-[60px] z-40 shadow-sm ml-3',
-        theme === 'dark' ? 'bg-[#0c0a09]' : 'bg-white',
+        'header sticky top-0 w-full flex justify-between items-center pl-2 pr-5 h-[60px] z-40',
+        theme === 'dark'
+          ? 'bg-[#rgba(12, 10, 9, 0.6)]'
+          : 'bg-[rgba(255, 255, 255, 0.6)]',
       )}
     >
       <div className="title-page flex gap-4">
@@ -48,13 +53,7 @@ const Header = () => {
       <div className="header-content flex gap-4">
         <div className="setting">
           <Button variant="outline" size="icon">
-            <Settings
-              className={cn(
-                theme === 'dark'
-                  ? 'absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100'
-                  : 'h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0',
-              )}
-            />
+            <Settings className={cn('h-[1.2rem] w-[1.2rem] transition-all')} />
           </Button>
         </div>
         <div className="themes">

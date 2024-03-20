@@ -5,6 +5,7 @@ import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { BsChevronExpand } from 'react-icons/bs';
 import { usePathname, useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 
 import { cn } from '@/lib/utils';
 import { logo } from '@/assets/exports';
@@ -15,18 +16,24 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from './ui/accordion';
+} from '@/components/ui/accordion';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { changeMinimal } from '@/lib/features/sidebar-slice';
+import { AppDispatch, useAppSelector } from '@/lib/store';
 
 interface PropSideBar {
   isMobile?: boolean;
 }
 
 const SideBar = ({ isMobile = false }: PropSideBar) => {
+  const [expandChilds, setExpandChilds] = useState<string[]>([]);
   const router = useRouter();
   const pathname = usePathname();
 
-  const [isMinimal, setIsMinimal] = useState<boolean>(false);
-  const [expandChilds, setExpandChilds] = useState<string[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
+  const isMinimal = useAppSelector(
+    (state) => state.sideBarReducer.value.isMinimal,
+  );
 
   useMemo(() => {
     setExpandChilds(() => {
@@ -39,7 +46,7 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
   }, [isMinimal]);
 
   const onClickMinimal = () => {
-    setIsMinimal((prevItems) => !prevItems);
+    dispatch(changeMinimal());
   };
 
   const onClickNavigation = (link: string) => {
@@ -64,7 +71,7 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
         isMobile
           ? 'border-none'
           : 'border-r-[1px] border-dashed sticky top-0 left-0 h-screen z-50',
-        isMinimal ? 'lg:w-[120px]' : 'lg:w-[300px]',
+        isMinimal && !isMobile ? 'lg:w-[135px]' : 'lg:w-[300px]',
         'lg:block',
       )}
     >
@@ -81,12 +88,17 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
           strokeWidth={'0'}
           className={cn(
             'cursor-pointer border-none rotate-90 absolute',
-            isMinimal ? 'right-[-10%]' : 'right-[-5%]',
+            isMinimal && !isMobile ? 'right-[-10%]' : 'right-[-5%]',
             isMobile ? 'hidden' : 'block',
           )}
         />
       </div>
-      <div className="navigation ">
+      <ScrollArea
+        className={cn(
+          'navigation max-h-screen pt-2 pb-2 pr-1',
+          isMobile ? 'h-[calc(100vh-200px)]' : 'lg:h-[calc(100vh-100px)]',
+        )}
+      >
         {NAVIGATION_SIDEBAR.map((navItem) => {
           return (
             <section
@@ -101,7 +113,7 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
                   <AccordionTrigger
                     className={cn(
                       'h-1 hover:no-underline text-xs h-5',
-                      isMinimal ? 'hidden' : 'flex',
+                      isMinimal && !isMobile ? 'hidden' : 'flex',
                     )}
                     onClick={() => onClickExpandChild(navItem.nameGroup)}
                   >
@@ -115,9 +127,11 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
                           key={`${navItem.nameGroup}_${child.name}`}
                           className={cn(
                             'flex text-xs justify-start',
-                            isMinimal ? 'flex-col h-18' : 'flex-row',
+                            isMinimal && !isMobile
+                              ? 'flex-col h-18'
+                              : 'flex-row',
                             pathname.includes(child.link)
-                              ? 'bg-green-500 text-white'
+                              ? 'bg-green-500 text-white hover:bg-green-500 hover:text-white'
                               : '',
                           )}
                           style={{ transition: 'width 1s' }}
@@ -138,7 +152,7 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
             </section>
           );
         })}
-      </div>
+      </ScrollArea>
     </main>
   );
 };
