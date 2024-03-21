@@ -11,9 +11,9 @@ export const NAVIGATION_SIDEBAR = [
         link: '/dashboard',
       },
       {
-        name: 'Thử Thống Kê',
+        name: 'Thống Kê 2',
         logo: LayoutDashboard,
-        link: '/dashboard1',
+        link: '/dashboard2',
       },
     ],
   },
@@ -22,9 +22,9 @@ export const NAVIGATION_SIDEBAR = [
     expand: true,
     children: [
       {
-        name: 'dashboard2',
+        name: 'dashboard1',
         logo: Gauge,
-        link: '/dashboard2',
+        link: '/dashboard1',
       },
       {
         name: 'dashboard3',

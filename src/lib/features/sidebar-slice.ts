@@ -15,9 +15,6 @@ export const sideBar = createSlice({
     changeMinimal: (state) => {
       state.isMinimal = !state.isMinimal;
     },
-    changeMinimalDemo: (state, action: PayloadAction<boolean>) => {
-      state.isMinimal = action.payload;
-    },
   },
 });
 

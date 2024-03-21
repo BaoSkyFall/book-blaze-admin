@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import sideBarReducer from './features/sidebar-slice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 
+import sideBarReducer from './features/sidebar-slice';
+import authReducer from './features/auth-slice';
+
 export const store = configureStore({
-  reducer: { sideBarReducer },
+  reducer: { sideBarReducer, authReducer },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

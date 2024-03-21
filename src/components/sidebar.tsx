@@ -128,9 +128,8 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
                             isMinimal && !isMobile
                               ? 'flex-col h-18'
                               : 'flex-row',
-                            pathname.includes(child.link)
-                              ? 'bg-green-500 text-white hover:bg-green-500 hover:text-white'
-                              : '',
+                            pathname === child.link &&
+                              'bg-green-500 text-white hover:bg-green-500 hover:text-white',
                           )}
                           onClick={() => onClickNavigation(child.link)}
                         >
