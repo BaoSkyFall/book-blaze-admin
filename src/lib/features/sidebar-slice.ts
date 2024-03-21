@@ -1,17 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type InitialState = {
-  value: SideBarState;
-};
-
-type SideBarState = {
   isMinimal: boolean;
 };
 
 const initialState = {
-  value: {
-    isMinimal: false,
-  } as SideBarState,
+  isMinimal: false,
 } as InitialState;
 
 export const sideBar = createSlice({
@@ -19,11 +13,10 @@ export const sideBar = createSlice({
   initialState: initialState,
   reducers: {
     changeMinimal: (state) => {
-      state.value.isMinimal = !state.value.isMinimal;
-      // localStorage.setItem('minimal', state.value.isMinimal.toString());
+      state.isMinimal = !state.isMinimal;
     },
     changeMinimalDemo: (state, action: PayloadAction<boolean>) => {
-      state.value.isMinimal = action.payload;
+      state.isMinimal = action.payload;
     },
   },
 });

@@ -31,9 +31,7 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
   const pathname = usePathname();
 
   const dispatch = useDispatch<AppDispatch>();
-  const isMinimal = useAppSelector(
-    (state) => state.sideBarReducer.value.isMinimal,
-  );
+  const isMinimal = useAppSelector((state) => state.sideBarReducer.isMinimal);
 
   useMemo(() => {
     setExpandChilds(() => {
@@ -134,7 +132,6 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
                               ? 'bg-green-500 text-white hover:bg-green-500 hover:text-white'
                               : '',
                           )}
-                          style={{ transition: 'width 1s' }}
                           onClick={() => onClickNavigation(child.link)}
                         >
                           <child.logo
