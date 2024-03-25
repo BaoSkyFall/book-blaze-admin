@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select';
+import { cn } from '@/lib/utils';
 
 interface PropsTableLayout {
   title?: string;
@@ -42,7 +43,12 @@ const TableLayout = ({
   const [filterSearch, setFilterSearch] = useState<string>('');
 
   return (
-    <section className={`p-5 rounded-md box-shadow mt-2 ${className ?? ''}`}>
+    <section
+      className={cn(
+        `p-5 rounded-md box-shadow mt-2 ${className ?? ''}`,
+        `dark:border`,
+      )}
+    >
       <span className="text-2xl font-bold">{title ?? ''}</span>
       <div id="header" className="flex justify-between mt-2">
         <div id="filter" className="flex relative">
