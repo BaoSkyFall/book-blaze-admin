@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { astronaut, planet, bgNotFound } from '@/assets/exports';
 import { Button } from '@/components/ui/button';
+import { NAVIGATION_LINK } from '@/enums/navigation.enum';
 
 const NotFoundPage = () => {
   return (
@@ -72,7 +73,7 @@ const NotFoundPage = () => {
           >
             Go Home
           </Button>
-          <Link href={'/dashboard'}></Link>
+          <Link href={NAVIGATION_LINK.HOME}></Link>
         </div>
       </div>
     </body>

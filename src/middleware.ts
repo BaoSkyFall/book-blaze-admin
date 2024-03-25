@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { NAVIGATION_LINK } from './enums/navigation.enum';
 
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get('access_token')?.value;
@@ -27,6 +28,6 @@ export function middleware(request: NextRequest) {
 
 const authMiddleWare = {
   privateRoutes: [] as string[],
-  signInUrl: '/auth/login',
-  afterSignInUrl: '/dashboard',
+  signInUrl: NAVIGATION_LINK.LOGIN,
+  afterSignInUrl: NAVIGATION_LINK.HOME,
 };

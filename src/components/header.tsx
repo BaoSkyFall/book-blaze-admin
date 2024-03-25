@@ -25,11 +25,9 @@ const Header = () => {
   const title = useMemo(() => {
     let titleName = '';
     NAVIGATION_SIDEBAR.forEach((navItem) => {
-      navItem.children.forEach((child) => {
-        if (pathname.includes(child.link)) {
-          titleName = child.name;
-        }
-      });
+      if (pathname.includes(navItem.link)) {
+        titleName = navItem.name;
+      }
     });
     return titleName;
   }, [pathname]);
@@ -42,13 +40,13 @@ const Header = () => {
       className={cn(
         'header sticky top-0 w-full flex justify-between items-center pl-2 pr-5 h-[60px] z-40',
         theme === 'dark'
-          ? 'bg-[#rgba(12, 10, 9, 0.6)]'
+          ? 'bg-[rgba(12, 10, 9, 0.6)]'
           : 'bg-[rgba(255, 255, 255, 0.6)]',
       )}
     >
       <div className="title-page flex gap-4">
         <SideBarMobile></SideBarMobile>
-        <span>{title}</span>
+        {/* <span>{title}</span> */}
       </div>
       <div className="header-content flex gap-4">
         <div className="setting">
