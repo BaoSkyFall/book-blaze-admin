@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Plus, Search } from 'lucide-react';
+import { ScrollArea } from './ui/scroll-area';
 
 interface PropsTableLayout {
   title?: string;
   children: React.ReactNode;
   placeHolderFilter?: string;
   onClickSearch?: (filterSearch?: string) => void;
+  className?: string;
 }
 
 const TableLayout = ({
@@ -17,11 +19,12 @@ const TableLayout = ({
   children,
   placeHolderFilter,
   onClickSearch,
+  className,
 }: PropsTableLayout) => {
   const [filterSearch, setFilterSearch] = useState<string>('');
 
   return (
-    <section>
+    <section className={`${className ?? ''}`}>
       <span className="text-2xl font-bold">{title ?? ''}</span>
       <div id="header" className="flex justify-between mt-2">
         <div id="filter" className="flex relative">
