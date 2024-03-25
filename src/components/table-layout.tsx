@@ -42,7 +42,7 @@ const TableLayout = ({
   const [filterSearch, setFilterSearch] = useState<string>('');
 
   return (
-    <section className={`${className ?? ''}`}>
+    <section className={`p-5 rounded-md box-shadow mt-2 ${className ?? ''}`}>
       <span className="text-2xl font-bold">{title ?? ''}</span>
       <div id="header" className="flex justify-between mt-2">
         <div id="filter" className="flex relative">
@@ -69,7 +69,7 @@ const TableLayout = ({
         </div>
       </div>
       <div id="body" className="mt-2">
-        <ScrollArea className="h-[calc(100vh-200px)] mr-2">
+        <ScrollArea className="h-[calc(100vh-250px)] mr-2">
           {children}
         </ScrollArea>
         <div id="pagination" className="flex justify-between">

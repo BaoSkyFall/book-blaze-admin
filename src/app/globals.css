@@ -84,6 +84,10 @@
     animation: spin 4.5s infinite linear;
   }
 
+  .box-shadow {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
   @keyframes spin {
     0% {
       transform: rotateZ(0deg);
