@@ -1,18 +1,17 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { BsChevronExpand } from 'react-icons/bs';
 import { usePathname, useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 
 import { cn } from '@/lib/utils';
-import { logo, ticket } from '@/assets/exports';
 import { NAVIGATION_SIDEBAR } from '@/enums/navigation.enum';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { changeMinimal } from '@/lib/features/sidebar-slice';
 import { AppDispatch, useAppSelector } from '@/lib/store';
+import { Ticket } from 'lucide-react';
 
 interface PropSideBar {
   isMobile?: boolean;
@@ -44,13 +43,8 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
         'lg:block',
       )}
     >
-      <div className="logo flex justify-center items-center relative">
-        <Image
-          src={ticket}
-          width={50}
-          height={50}
-          alt="Logo Admin Booking Ticket"
-        />
+      <div className="logo flex justify-center items-center relative mt-2">
+        <Ticket width={45} height={45} className="rotate-90" strokeWidth={1} />
         <span
           className={cn(
             'font-bold ',
@@ -81,7 +75,7 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
             return (
               <div key={navItem.name} className="flex flex-col gap-2 p-0 m-0">
                 <Button
-                  variant={pathname === navItem.link ? 'default' : 'outline'}
+                  variant={pathname === navItem.link ? 'default' : 'ghost'}
                   className={cn(
                     'flex text-xs justify-start',
                     isMinimal && !isMobile ? 'flex-col h-18' : 'flex-row',
