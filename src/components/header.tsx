@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import {
   DropdownMenu,
@@ -38,10 +38,7 @@ const Header = () => {
         backdropFilter: 'saturate(200%) blur(6px)',
       }}
       className={cn(
-        'header sticky top-0 w-full flex justify-between items-center pl-2 pr-5 h-[60px] z-40',
-        theme === 'dark'
-          ? 'bg-[rgba(12, 10, 9, 0.6)]'
-          : 'bg-[rgba(255, 255, 255, 0.6)]',
+        'header sticky top-0 w-full flex justify-between items-center pl-2 pr-5 h-[60px] z-40 bg-[hsl(var(--background))]',
       )}
     >
       <div className="title-page flex gap-4">

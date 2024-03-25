@@ -5,6 +5,24 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Plus, Search } from 'lucide-react';
 import { ScrollArea } from './ui/scroll-area';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from './ui/pagination';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
 
 interface PropsTableLayout {
   title?: string;
@@ -33,7 +51,7 @@ const TableLayout = ({
             value={filterSearch}
             onChange={(e) => setFilterSearch(e.target.value)}
             placeholder={placeHolderFilter}
-            className="pr-[55px]"
+            className="pr-[55px] focus:border-0"
           />
           <Button
             variant="default"
@@ -51,7 +69,46 @@ const TableLayout = ({
         </div>
       </div>
       <div id="body" className="mt-2">
-        {children}
+        <ScrollArea className="h-[calc(100vh-200px)] mr-2">
+          {children}
+        </ScrollArea>
+        <div id="pagination" className="flex justify-between">
+          <div id="page-size" className="flex gap-2 items-center">
+            <span className="text-sm text-nowrap">
+              Showing 51 to 301 of 133 entries
+            </span>
+            <Select defaultValue={'50'}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="20">20</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                  <SelectItem value="100">100</SelectItem>
+                  <SelectItem value="200">200</SelectItem>
+                  <SelectItem value="500">500</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <Pagination className="justify-end">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
       </div>
     </section>
   );
