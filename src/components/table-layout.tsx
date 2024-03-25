@@ -47,7 +47,9 @@ const TableLayout = ({
           <Button variant="default">CSV</Button>
         </div>
       </div>
-      <div id="body">{children}</div>
+      <div id="body" className="mt-2">
+        {children}
+      </div>
     </section>
   );
 };
