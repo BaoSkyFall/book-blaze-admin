@@ -166,13 +166,14 @@ export const columns: ColumnDef<ICustomer>[] = [
   },
   {
     accessorKey: "countTicket",
-    header: "Số Lần mua vé",
+    header: () => <div className="text-center">Số Lần mua vé</div>,
+    cell: ({row}) => <div className='text-center'>{row.getValue('countTicket')}</div>
   },
   {
     accessorKey: "action",
-    header: "Action",
+    header: () => <div className="text-center">Action</div>,
     cell: ({row}) => (
-      <div className='flex gap-2'>
+      <div className='flex gap-2 justify-center'>
         <Button
           variant="ghost"
           className="hover:bg-blue-500 hover:text-white"

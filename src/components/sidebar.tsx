@@ -1,16 +1,15 @@
 'use client';
 
-import React from 'react';
-import { BsChevronExpand } from 'react-icons/bs';
 import { usePathname, useRouter } from 'next/navigation';
+import { BsChevronExpand } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 
-import { cn } from '@/lib/utils';
-import { NAVIGATION_SIDEBAR } from '@/enums/navigation.enum';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { NAVIGATION_SIDEBAR } from '@/enums/navigation.enum';
 import { changeMinimal } from '@/lib/features/sidebar-slice';
 import { AppDispatch, useAppSelector } from '@/lib/store';
+import { cn } from '@/lib/utils';
 import { Ticket } from 'lucide-react';
 
 interface PropSideBar {
