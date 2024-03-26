@@ -30,6 +30,7 @@ interface PropsTableLayout {
   placeHolderFilter?: string;
   onClickSearch?: (filterSearch?: string) => void;
   onClickAdd?: () => void;
+  onClickCSV?: () => void;
   className?: string;
 }
 
@@ -39,6 +40,7 @@ const TableLayout = ({
   placeHolderFilter,
   onClickSearch,
   onClickAdd,
+  onClickCSV,
   className,
 }: PropsTableLayout) => {
   const [filterSearch, setFilterSearch] = useState<string>('');
@@ -75,12 +77,14 @@ const TableLayout = ({
         </div>
         <div id="buttons" className="flex gap-2">
           {
-            onClickAdd !== undefined && 
+            onClickAdd !== undefined &&
             <Button variant="default" onClick={() => onClickAdd && onClickAdd()}>
               <Plus /> Add
             </Button>
           }
-          <Button variant="default">CSV</Button>
+          {
+            onClickCSV !== undefined && <Button variant="default">CSV</Button>
+          }
         </div>
       </div>
       <div id="body" className="mt-2">
