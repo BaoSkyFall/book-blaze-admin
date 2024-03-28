@@ -1,20 +1,22 @@
-import type { Metadata } from 'next';
+'use client';
 
-import '../globals.css';
-import SideBar from '@/components/sidebar';
 import Header from '@/components/header';
+import SideBar from '@/components/sidebar';
 import { ScrollArea } from '@/components/ui/scroll-area';
-
-export const metadata: Metadata = {
-  title: 'Administrator Booking Ticket',
-  description: 'Administrator Booking Ticket',
-};
+import { getInfo } from '@/lib/features/session-slice';
+import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
+import { useEffect } from 'react';
+import '../globals.css';
 
 export default function HomeLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getInfo());
+  }, [])
   return (
     <main className="flex w-screen">
       <SideBar></SideBar>

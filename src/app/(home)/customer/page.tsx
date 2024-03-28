@@ -5,7 +5,7 @@ import TableLayout from '@/components/table-layout';
 import { Button } from '@/components/ui/button';
 import { ColumnDef } from '@tanstack/react-table';
 import { Pencil, Trash2 } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 interface ICustomer {
   id: number;
@@ -197,12 +197,11 @@ const CustomerPage = () => {
 
   const customerList = useMemo<ICustomer[]>(() => {
     return dummyData;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterSearch]);
 
-  const onClickSearch = (filterSearch?: string) => {
+  const onClickSearch = useCallback((filterSearch?: string) => {
     setFilterSearch(filterSearch ?? '');
-  };
+  },[])
 
   return (
     <TableLayout

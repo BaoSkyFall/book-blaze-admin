@@ -2,13 +2,13 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { BsChevronExpand } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
 
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { NAVIGATION_SIDEBAR } from '@/enums/navigation.enum';
 import { changeMinimal } from '@/lib/features/sidebar-slice';
-import { AppDispatch, useAppSelector } from '@/lib/store';
+import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
+import { useAppSelector } from '@/lib/hooks/useAppSelector';
 import { cn } from '@/lib/utils';
 import { Ticket } from 'lucide-react';
 
@@ -20,7 +20,7 @@ const SideBar = ({ isMobile = false }: PropSideBar) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const isMinimal = useAppSelector((state) => state.sideBarReducer.isMinimal);
 
   const onClickMinimal = () => {
