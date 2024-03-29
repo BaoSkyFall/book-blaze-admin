@@ -47,7 +47,7 @@ export const login = createAsyncThunk('sessionSlice/login',
 )
 
 export const getInfo = createAsyncThunk('sessionSlice/getInfo',
-  async (payloadLogin: any, thunkApi) => {
+  async (_payload: any, thunkApi) => {
     try {
       const resp = await axiosAuth.get('/auth/me');
       return resp?.data ?? {};
@@ -61,8 +61,8 @@ export const getInfo = createAsyncThunk('sessionSlice/getInfo',
   }
 )
 
-export const sideBar = createSlice({
-  name: 'sideBar',
+export const Session = createSlice({
+  name: 'session',
   initialState: initialState,
   reducers: {},
   extraReducers(builder) {
@@ -83,4 +83,4 @@ export const sideBar = createSlice({
   },
 });
 
-export default sideBar.reducer;
+export default Session.reducer;
