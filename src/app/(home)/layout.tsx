@@ -15,7 +15,7 @@ export default function HomeLayout({
 }>) {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getInfo());
+    dispatch(getInfo({}));
   }, [])
   return (
     <main className="flex w-screen">

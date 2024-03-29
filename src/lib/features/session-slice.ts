@@ -1,7 +1,6 @@
-import axios from '@/lib/axios';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import useAxiosAuth from '../hooks/useAxiosAuth';
+import { axiosAuth } from '../axios';
 
 type InitialState = {
   isLogged: boolean;
@@ -35,7 +34,7 @@ interface ILogin{
 export const login = createAsyncThunk('sessionSlice/login',
   async (payloadLogin: ILogin, thunkApi) => {
     try {
-      const resp = await axios.post('/auth/login', payloadLogin);
+      const resp = await axiosAuth.post('/auth/login', payloadLogin);
       return resp?.data ?? {};
     } catch (error){
       let errorMessage = 'Unknown Message';
@@ -48,17 +47,16 @@ export const login = createAsyncThunk('sessionSlice/login',
 )
 
 export const getInfo = createAsyncThunk('sessionSlice/getInfo',
-  async () => {
+  async (payloadLogin: any, thunkApi) => {
     try {
-      const axios = useAxiosAuth();
-      const resp = await axios.get('/auth/me');
+      const resp = await axiosAuth.get('/auth/me');
       return resp?.data ?? {};
     } catch (error){
       let errorMessage = 'Unknown Message';
       if (error instanceof AxiosError) {
         errorMessage = error.response?.data?.message || 'Unknown Message'
       }
-      return errorMessage;
+      return thunkApi.rejectWithValue(errorMessage);
     }
   }
 )
@@ -85,5 +83,4 @@ export const sideBar = createSlice({
   },
 });
 
-// export const {  } = sideBar.actions;
 export default sideBar.reducer;
