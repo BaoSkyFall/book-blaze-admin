@@ -3,8 +3,13 @@ import { AxiosError } from 'axios';
 import { axiosAuth } from '../axios';
 
 type InitialState = {
+  isLoadData: boolean;
   isLogged: boolean;
-  isLoading: boolean;
+  isLoading: {
+    logIn: boolean;
+    logOut: boolean;
+    getInfo: boolean;
+  };
   id: number;
   username: string;
   email: string;
@@ -15,8 +20,13 @@ type InitialState = {
 };
 
 const initialState = {
+  isLoadData: false,
   isLogged: false,
-  isLoading: false,
+  isLoading: {
+    logIn: false,
+    logOut: false,
+    getInfo: false,
+  },
   id: 0,
   username: '',
   email: '',
@@ -26,61 +36,89 @@ const initialState = {
   image: '',
 } as InitialState;
 
-interface ILogin{
+interface ILogin {
   username: string;
   password: string;
 }
 
-export const login = createAsyncThunk('sessionSlice/login',
+export const login = createAsyncThunk(
+  'sessionSlice/login',
   async (payloadLogin: ILogin, thunkApi) => {
     try {
-      const resp = await axiosAuth.post('/auth/login', payloadLogin);
+      const resp = await axiosAuth.post('/auth/login', {
+        ...payloadLogin,
+        expiresInMins: 30,
+      });
       return resp?.data ?? {};
-    } catch (error){
+    } catch (error) {
       let errorMessage = 'Unknown Message';
       if (error instanceof AxiosError) {
-        errorMessage = error.response?.data?.message || 'Unknown Message'
+        errorMessage = error.response?.data?.message || 'Unknown Message';
       }
       return thunkApi.rejectWithValue(errorMessage);
     }
-  }
-)
+  },
+);
 
-export const getInfo = createAsyncThunk('sessionSlice/getInfo',
+export const getInfo = createAsyncThunk(
+  'sessionSlice/getInfo',
   async (_payload: any, thunkApi) => {
     try {
       const resp = await axiosAuth.get('/auth/me');
       return resp?.data ?? {};
-    } catch (error){
+    } catch (error) {
       let errorMessage = 'Unknown Message';
       if (error instanceof AxiosError) {
-        errorMessage = error.response?.data?.message || 'Unknown Message'
+        errorMessage = error.response?.data?.message || 'Unknown Message';
       }
       return thunkApi.rejectWithValue(errorMessage);
     }
-  }
-)
+  },
+);
 
-export const Session = createSlice({
+export const session = createSlice({
   name: 'session',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    logOut: (state) => {
+      localStorage.removeItem('access_token');
+      Object.assign(state, initialState);
+      state.isLoadData = false;
+    },
+  },
   extraReducers(builder) {
     builder
-      .addCase(login.fulfilled, (_state, action: PayloadAction<any>) => {
-        localStorage.setItem('accessToken', action.payload?.token ?? '')
+      //Login
+      .addCase(login.pending, (state, _action: PayloadAction<any>) => {
+        state.isLoading.logIn = true;
       })
+      .addCase(login.fulfilled, (state, action: PayloadAction<any>) => {
+        const { token, ...newPayload } = action.payload;
+        localStorage.setItem('access_token', token ?? '');
+        Object.assign(state, newPayload);
+        state.isLogged = true;
+        state.isLoadData = true;
+        state.isLoading.logIn = false;
+      })
+      .addCase(login.rejected, (state, _action: PayloadAction<any>) => {
+        state.isLoading.logIn = false;
+      })
+      // Get Info
       .addCase(getInfo.pending, (state, _action: PayloadAction<any>) => {
-        state.isLoading = true;
+        state.isLoading.getInfo = true;
       })
       .addCase(getInfo.fulfilled, (state, action: PayloadAction<any>) => {
-        state.isLoading = false;
         Object.assign(state, action.payload);
+        state.isLoading.getInfo = false;
+        state.isLogged = true;
+        state.isLoadData = true;
       })
       .addCase(getInfo.rejected, (state, _action: PayloadAction<any>) => {
         Object.assign(state, initialState);
-      })
+        state.isLoadData = true;
+      });
   },
 });
 
-export default Session.reducer;
+export const { logOut } = session.actions;
+export default session.reducer;
