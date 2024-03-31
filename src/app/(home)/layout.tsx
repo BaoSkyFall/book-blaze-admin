@@ -8,7 +8,6 @@ import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
 import { useEffect } from 'react';
 import '../globals.css';
 import { useAppSelector } from '@/lib/hooks/useAppSelector';
-import { useRouter } from 'next/navigation';
 import { NAVIGATION_LINK } from '@/enums/navigation.enum';
 
 export default function HomeLayout({
@@ -18,20 +17,22 @@ export default function HomeLayout({
 }>) {
   const session = useAppSelector((state) => state.sessionReducer);
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   useEffect(() => {
-    dispatch(getInfo({}));
+    if (
+      !localStorage.getItem(
+        process.env.NEXT_PUBLIC_NAME_TOKEN ?? 'access_token',
+      )
+    ) {
+      window.location.href = NAVIGATION_LINK.LOGIN;
+    } else {
+      dispatch(getInfo({}));
+    }
   }, [dispatch]);
 
-  useEffect(() => {
-    if (session.isLoadData && !session.isLogged) {
-      router.push(NAVIGATION_LINK.LOGIN);
-    }
-  }, [router, session]);
   return (
     <>
-      {session.isLogged && (
+      {session?.isLogged && (
         <main className="flex w-screen">
           <SideBar></SideBar>
           <ScrollArea className="main w-full h-screen">

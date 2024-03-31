@@ -15,8 +15,8 @@ import { Button } from './ui/button';
 import { Moon, Settings, Sun } from 'lucide-react';
 import SideBarMobile from './sidebar-mobile';
 import { cn } from '@/lib/utils';
-import { usePathname, useRouter } from 'next/navigation';
-import { NAVIGATION_LINK, NAVIGATION_SIDEBAR } from '@/enums/navigation.enum';
+import { usePathname } from 'next/navigation';
+import { NAVIGATION_SIDEBAR } from '@/enums/navigation.enum';
 import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
 import { logOut } from '@/lib/features/session-slice';
 
@@ -24,7 +24,6 @@ const Header = () => {
   const { setTheme, theme } = useTheme();
   const pathname = usePathname();
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   const title = useMemo(() => {
     let titleName = '';
@@ -36,9 +35,8 @@ const Header = () => {
     return titleName;
   }, [pathname]);
 
-  const onClickLogOut = async () => {
-    await dispatch(logOut());
-    router.push(NAVIGATION_LINK.LOGIN);
+  const onClickLogOut = () => {
+    dispatch(logOut());
   };
 
   return (

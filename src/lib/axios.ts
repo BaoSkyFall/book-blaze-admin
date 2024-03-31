@@ -1,8 +1,7 @@
 'use client';
 
 import axios, { AxiosError } from 'axios';
-import { useAppDispatch } from './hooks/useAppDispatch';
-import { logOut } from './features/session-slice';
+import { NAVIGATION_LINK } from '@/enums/navigation.enum';
 const BASE_URL = 'https://dummyjson.com';
 
 export const axiosAuth = axios.create({
@@ -14,10 +13,10 @@ axiosAuth.interceptors.request.use(
   (config) => {
     if (
       !config.headers['Authorization'] &&
-      localStorage.getItem('access_token')
+      localStorage.getItem(process.env.NEXT_PUBLIC_NAME_TOKEN ?? 'access_token')
     ) {
       config.headers['Authorization'] =
-        `Bearer ${localStorage.getItem('access_token')}`;
+        `Bearer ${localStorage.getItem(process.env.NEXT_PUBLIC_NAME_TOKEN ?? 'access_token')}`;
     }
     return config;
   },
@@ -27,9 +26,11 @@ axiosAuth.interceptors.request.use(
 axiosAuth.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    const dispatch = useAppDispatch();
     if ([401, 403].includes(error.response?.status ?? 0)) {
-      dispatch(logOut());
+      localStorage.removeItem(
+        process.env.NEXT_PUBLIC_NAME_TOKEN ?? 'access_token',
+      );
+      window.location.href = NAVIGATION_LINK.LOGIN;
     }
   },
 );

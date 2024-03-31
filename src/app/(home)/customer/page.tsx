@@ -149,59 +149,55 @@ const dummyData = [
 
 export const columns: ColumnDef<ICustomer>[] = [
   {
-    accessorKey: "fullName",
-    header: "Họ Tên",
+    accessorKey: 'fullName',
+    header: 'Họ Tên',
   },
   {
-    accessorKey: "phone",
-    header: "Số Điện Thoại",
+    accessorKey: 'phone',
+    header: 'Số Điện Thoại',
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: 'email',
+    header: 'Email',
   },
   {
-    accessorKey: "createdAt",
-    header: "Ngày Tạo",
+    accessorKey: 'createdAt',
+    header: 'Ngày Tạo',
   },
   {
-    accessorKey: "countTicket",
+    accessorKey: 'countTicket',
     header: () => <div className="text-center">Số Lần mua vé</div>,
-    cell: ({row}) => <div className='text-center'>{row.getValue('countTicket')}</div>
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue('countTicket')}</div>
+    ),
   },
   {
-    accessorKey: "action",
+    accessorKey: 'action',
     header: () => <div className="text-center">Action</div>,
-    cell: ({row}) => (
-      <div className='flex gap-2 justify-center'>
-        <Button
-          variant="ghost"
-          className="hover:bg-blue-500 hover:text-white"
-        >
+    cell: ({ row }) => (
+      <div className="flex gap-2 justify-center">
+        <Button variant="ghost" className="hover:bg-blue-500 hover:text-white">
           <Pencil />
         </Button>
-        <Button
-          variant="ghost"
-          className="hover:bg-red-600 hover:text-white"
-        >
+        <Button variant="ghost" className="hover:bg-red-600 hover:text-white">
           <Trash2 />
         </Button>
       </div>
     ),
   },
-]
-
+];
 
 const CustomerPage = () => {
   const [filterSearch, setFilterSearch] = useState<string>('');
 
   const customerList = useMemo<ICustomer[]>(() => {
     return dummyData;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterSearch]);
 
   const onClickSearch = useCallback((filterSearch?: string) => {
     setFilterSearch(filterSearch ?? '');
-  },[])
+  }, []);
 
   return (
     <TableLayout

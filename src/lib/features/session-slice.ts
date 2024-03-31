@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { axiosAuth } from '../axios';
+import { NAVIGATION_LINK } from '@/enums/navigation.enum';
 
 type InitialState = {
   isLoadData: boolean;
@@ -81,9 +82,12 @@ export const session = createSlice({
   initialState: initialState,
   reducers: {
     logOut: (state) => {
-      localStorage.removeItem('access_token');
+      localStorage.removeItem(
+        process.env.NEXT_PUBLIC_NAME_TOKEN ?? 'access_token',
+      );
       Object.assign(state, initialState);
       state.isLoadData = false;
+      window.location.href = NAVIGATION_LINK.LOGIN;
     },
   },
   extraReducers(builder) {
@@ -93,11 +97,10 @@ export const session = createSlice({
         state.isLoading.logIn = true;
       })
       .addCase(login.fulfilled, (state, action: PayloadAction<any>) => {
-        const { token, ...newPayload } = action.payload;
-        localStorage.setItem('access_token', token ?? '');
-        Object.assign(state, newPayload);
-        state.isLogged = true;
-        state.isLoadData = true;
+        localStorage.setItem(
+          process.env.NEXT_PUBLIC_NAME_TOKEN ?? 'access_token',
+          action.payload.token,
+        );
         state.isLoading.logIn = false;
       })
       .addCase(login.rejected, (state, _action: PayloadAction<any>) => {
